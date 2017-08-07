@@ -19,6 +19,9 @@
     <link rel="stylesheet" href="{{asset('admin_Lte/css/_all-skins.min.css')}}">
     <!-- Image Upload -->
     <link rel="stylesheet" href="{{asset('admin_Lte/css/imageUpload.css')}}">
+    <!-- Google Map -->
+    <link rel="stylesheet" href="{{asset('admin_Lte/css/map.css')}}">
+
 
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -32,6 +35,7 @@
     <!-- Google Font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
+
 <body class="hold-transition skin-blue sidebar-mini">
 
 <!-- Site wrapper -->
@@ -457,8 +461,11 @@
 </div>
 <!-- ./wrapper -->
 
+<!-- Google Map -->
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlfu2E-dxQ_8n1xQ4XnQoM8DygZAdwaP4&callback=initMap">
+</script>
 <!-- jQuery 3 -->
-
 <script src="{{asset('admin_Lte/js/jquery.min.js')}}"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="{{asset('admin_Lte/js/bootstrap.min.js')}}"></script>
