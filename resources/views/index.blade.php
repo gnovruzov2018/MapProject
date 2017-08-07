@@ -10,7 +10,7 @@
 
         <!-- Main content -->
         <section class="content">
-
+        <h1>hg</h1>
             <div id="map"></div>
             <script>
                 function initMap() {
