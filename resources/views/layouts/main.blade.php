@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Map Search | @yield('title')</title>
@@ -201,58 +202,6 @@
     </header>
 
     <!-- =============================================== -->
-
-    <!-- Left side column. contains the sidebar -->
-    <aside class="main-sidebar">
-        <!-- sidebar: style can be found in sidebar.less -->
-        <section class="sidebar">
-            <!-- Sidebar user panel -->
-            <div class="user-panel">
-                <div class="pull-left image">
-                    <img src="admin_Lte/image/profil_image/{{Auth::user()->avatar}}" class="img-circle" alt="User Image">
-                </div>
-                <div class="pull-left info">
-                    <p>{{Auth::user()->name.' '.Auth::user()->surname }}</p>
-                    <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-                </div>
-            </div>
-            <!-- search form -->
-
-            <!-- /.search form -->
-            <!-- sidebar menu: : style can be found in sidebar.less -->
-            <ul class="sidebar-menu" data-widget="tree">
-                <li class="header">Cities</li>
-                <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-map-marker"></i> <span>Cities</span>
-                        <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="#"><i class="fa fa-circle-o"></i> Shamaxi</a></li>
-                        <li><a href="#"><i class="fa fa-circle-o"></i> Agsu</a></li>
-                    </ul>
-                </li>
-                <li class="treeview">
-                    <a href="#">
-                        <i class="fa fa-tags"></i> <span>Categories</span>
-                        <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li><a href="#"><i class="fa fa-circle-o"></i> Hospital</a></li>
-                        <li><a href="#"><i class="fa fa-circle-o"></i> Restaurant</a></li>
-                    </ul>
-                </li>
-
-
-
-            </ul>
-        </section>
-        <!-- /.sidebar -->
-    </aside>
 
     @yield('content')
 
@@ -463,7 +412,7 @@
 
 <!-- Google Map -->
 <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlfu2E-dxQ_8n1xQ4XnQoM8DygZAdwaP4&callback=initMap">
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlfu2E-dxQ_8n1xQ4XnQoM8DygZAdwaP4&libraries=places&callback=initMap">
 </script>
 <!-- jQuery 3 -->
 <script src="{{asset('admin_Lte/js/jquery.min.js')}}"></script>
@@ -479,6 +428,9 @@
 <script src="{{asset('admin_Lte/js/demo.js')}}"></script>
 <!-- Image Upload -->
 <script src="{{asset('admin_Lte/js/imageUpload.js')}}"></script>
+<!-- Google Map -->
+{{--<script src="{{asset('admin_Lte/js/map.js')}}"></script>--}}
+
 
 <script>
     $(document).ready(function () {

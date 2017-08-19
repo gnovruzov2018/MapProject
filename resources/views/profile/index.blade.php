@@ -3,6 +3,24 @@
 
 @section('content')
 
+    <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- Sidebar user panel -->
+            <div class="user-panel">
+                @include('partials.sidebar-header')
+            </div>
+            <!-- search form -->
+
+            <!-- /.search form -->
+            <!-- sidebar menu: : style can be found in sidebar.less -->
+            <ul class="sidebar-menu" data-widget="tree">
+                @include('partials.sidebar-content-profile')
+            </ul>
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -126,29 +144,7 @@
                                                    placeholder="Email">
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="inputName" class="col-sm-2 control-label">Şəkil</label>
-                                        <div class="col-sm-10">
-                                            <div class="input-group image-preview">
-                                                <input type="text" class="form-control image-preview-filename"
-                                                       disabled="disabled">
-                                                <!-- don't give a name === doesn't send on POST/GET -->
-                                                <span class="input-group-btn">
-                                            <!-- image-preview-clear button -->
-                                                     <button type="button" class="btn btn-default image-preview-clear" style="display:none;">
-                                                <span class="glyphicon glyphicon-remove"></span> Clear
-                                                    </button>
-                                                    <!-- image-preview-input -->
-                                                    <div class="btn btn-default image-preview-input">
-                                                        <span class="glyphicon glyphicon-folder-open"></span>
-                                                        <span class="image-preview-input-title">Browse</span>
-                                                        <input type="file" accept="image/png, image/jpeg, image/gif" name="input-file-preview"/>
-                                                        <!-- rename it -->
-                                                    </div>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
+
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10">
                                             <button type="submit" class="btn btn-success">Yenilə</button>
