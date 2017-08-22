@@ -60,9 +60,16 @@
                                 type: ['restaurant']
                             };
                             map.setCenter(pos);
+                            var icon = {
+                                url: 'marker-icons/default.svg', // url
+                                scaledSize: new google.maps.Size(35, 43), // scaled size
+                                origin: new google.maps.Point(0,0), // origin
+                                anchor: new google.maps.Point(0, 0) // anchor
+                            };
                             var marker = new google.maps.Marker({
                                 map: map,
-                                position: pos
+                                position: pos,
+                                icon: icon
                             });
 
                             markers.push(marker);
@@ -109,8 +116,48 @@
 
                 function createMarker(place) {
                     var placeLoc = place.geometry.location;
+                    var icon = '';
+                    if(place.types.indexOf('hospital')>-1){
+                         icon = {
+                            url: 'marker-icons/hospital.png', // url
+                            scaledSize: new google.maps.Size(25, 50), // scaled size
+                            origin: new google.maps.Point(0,0), // origin
+                            anchor: new google.maps.Point(0, 0) // anchor
+                        };
+                    }else if(place.types.indexOf('school')>-1){
+                        icon = {
+                            url: 'marker-icons/school.png', // url
+                            scaledSize: new google.maps.Size(30, 45), // scaled size
+                            origin: new google.maps.Point(0,0), // origin
+                            anchor: new google.maps.Point(0, 0) // anchor
+                        };
+                    }else if(place.types.indexOf('restaurant')>-1){
+                        icon = {
+                            url: 'marker-icons/restaurant.png', // url
+                            scaledSize: new google.maps.Size(35, 47), // scaled size
+                            origin: new google.maps.Point(0,0), // origin
+                            anchor: new google.maps.Point(0, 0) // anchor
+                        };
+                    }else if(place.types.indexOf('university')>-1){
+                        icon = {
+                            url: 'marker-icons/university.png', // url
+                            scaledSize: new google.maps.Size(30, 50), // scaled size
+                            origin: new google.maps.Point(0,0), // origin
+                            anchor: new google.maps.Point(0, 0) // anchor
+                        };
+                    }else{
+                         icon = {
+                            url: 'marker-icons/default.svg', // url
+                            scaledSize: new google.maps.Size(35, 43), // scaled size
+                            origin: new google.maps.Point(0,0), // origin
+                            anchor: new google.maps.Point(0, 0) // anchor
+                        };
+                    }
+
                     var marker = new google.maps.Marker({
                         map: map,
+                        animation: google.maps.Animation.DROP,
+                        icon: icon,
                         position: placeLoc
                     });
                     google.maps.event.addListener(marker, 'click', function() {
