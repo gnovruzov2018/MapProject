@@ -20,6 +20,9 @@ class CreateUsersTable extends Migration
             $table->string('father_name');
             $table->string('email')->unique();
             $table->string('password');
+            $table->boolean('verified')->default(false);
+            $table->string('token')->nullable();
+            $table->string('avatar')->default('default.jpg');
             $table->rememberToken();
             $table->timestamps();
         });

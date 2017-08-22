@@ -41,15 +41,16 @@
                 var geocoder;
                 var clickedPlace = '';
                 var clickedCategory = '';
+                var markers = [];
                 function initMap() {
                     map = new google.maps.Map(document.getElementById('map'), {
                         center:{lat: -33.867, lng: 151.195},
-                        zoom: 13
+                        zoom: 15
                     });
                     infowindow = new google.maps.InfoWindow;
                     if (navigator.geolocation) {
                         navigator.geolocation.getCurrentPosition(function(position) {
-                             var pos = {
+                            var pos = {
                                 lat: position.coords.latitude,
                                 lng: position.coords.longitude
                             };
@@ -64,24 +65,32 @@
                                 position: pos
                             });
 
+                            markers.push(marker);
+
                         }, function() {
                             handleLocationError(true, infoWindow, map.getCenter());
                         });
+
                     } else {
                         // Browser doesn't support Geolocation
                         handleLocationError(false, infoWindow, map.getCenter());
                     }
-
                 }
+
+                  function clearMarkers() {
+                     for (var i = 0; i < markers.length; i++) {
+                      markers[i].setMap(null);
+                    }
+                     markers = [];
+                  }
 
                 function findNearyByPlacesByCategory(placeCategory,displayname) {
                     clickedCategory = placeCategory;
                     document.getElementById('category').innerHTML = '[' + displayname + ']';
                     if (clickedPlace != '') {
-//php
-                        geocodeAddress(map, clickedPlace, clickedCategory);
-                    }else {
-                        alert('Zəhmət olmasa '+displayname+' axtarmaq istədiyiniz şəhəri seçin.')
+                        geocodeAddress(clickedPlace, clickedCategory);
+                    } else {
+                        geocodeLocation(clickedCategory);
                     }
                 }
 
@@ -108,31 +117,71 @@
                         infowindow.setContent(place.name);
                         infowindow.open(map, this);
                     });
+                    markers.push(marker);
                 }
+
                 function findPlace(place) {
                     clickedPlace = place;
                     clickedCategory = '';
                     document.getElementById('category').innerHTML = '<i>[yoxdur]</i>';
                     document.getElementById('city').innerHTML = '['+clickedPlace+']';
-                    geocodeAddress(map, clickedPlace,clickedCategory);
+                    geocodeAddress(clickedPlace,clickedCategory);
                 }
-                function geocodeAddress(resultsMap, address, category) {
+
+                function geocodeLocation(category){
+                    clearMarkers();
+                    clickedPlace = '';
+                    if (navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(function(position) {
+                            var pos = {
+                                lat: position.coords.latitude,
+                                lng: position.coords.longitude
+                            };
+                            geocoder = new google.maps.Geocoder();
+                            geocoder.geocode({'location': pos}, function(results, status) {
+                                if (status === 'OK') {
+                                    map.setCenter(results[0].geometry.location);
+                                    map.setZoom(14);
+                                    createMarker(results[0]);
+                                }
+                            });
+                            if (category!='' ) {
+                                var request = {
+                                    location: pos,
+                                    radius: '1000',
+                                    type: [category]
+                                };
+                                findNearByPlaces(request);
+                                map.setCenter(pos);
+                            }
+                            clickedCategory = '';
+                        }, 
+                        function() {
+                            handleLocationError(true, infoWindow, map.getCenter());
+                        });
+                    } else {
+                        // Browser doesn't support Geolocation
+                        handleLocationError(false, infoWindow, map.getCenter());
+                    }
+                }
+
+                function geocodeAddress(address, category) {
+                    clearMarkers();
                     geocoder = new google.maps.Geocoder();
                     geocoder.geocode({'address': address}, function(results, status) {
                         if (status === 'OK') {
-                            resultsMap.setCenter(results[0].geometry.location);
+                            var location = results[0].geometry.location;
+                            map.setCenter(location);
                             createMarker(results[0]);
-                            var request = {
-                                location: results[0].geometry.location,
-                                radius: '1000',
-                                type: [category]
-                            };
                             if (category!='' ) {
+                                var request = {
+                                    location: location,
+                                    radius: '1000',
+                                    type: [category]
+                                };
                                 findNearByPlaces(request);
+                                map.setZoom(14);
                             }
-//                            else {
-//                                alert('dyc');
-//                            }
                             clickedCategory = '';
                         } else {
                             alert('Geocode was not successful for the following reason: ' + status);
