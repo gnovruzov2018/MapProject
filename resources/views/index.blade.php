@@ -109,11 +109,24 @@
                 function callback(results, status) {
                     if (status === google.maps.places.PlacesServiceStatus.OK) {
                         for (var i = 0; i < results.length; i++) {
-                            createMarker(results[i]);
+                            (function (i) {
+                                $.ajax({
+                                    url: '/findPlaceById/' + results[i].place_id,
+                                    type: 'GET',
+                                    dataType: 'json',
+                                    success: function (data) {
+                                        if (data.length > 0) {
+                                            createMarker(results[i]);
+                                        }
+                                    },
+                                    error: function () {
+                                        console.log('error');
+                                    }
+                                });
+                            })(i);
                         }
                     }
                 }
-
                 function createMarker(place) {
                     var placeLoc = place.geometry.location;
                     var icon = '';
@@ -161,7 +174,7 @@
                         position: placeLoc
                     });
                     google.maps.event.addListener(marker, 'click', function() {
-                        infowindow.setContent(place.name);
+                        infowindow.setContent(place.name+'<br>'+place.place_id);
                         infowindow.open(map, this);
                     });
                     markers.push(marker);
@@ -195,7 +208,7 @@
                             if (category!='' ) {
                                 var request = {
                                     location: pos,
-                                    radius: '1000',
+                                    radius: '2000',
                                     type: [category]
                                 };
                                 findNearByPlaces(request);

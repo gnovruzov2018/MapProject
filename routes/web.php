@@ -22,6 +22,9 @@ Route::get('/register', function () {
     return view('register');
 });
 Route::get('/profile', 'UserController@index');
+
+Route::get('/findPlaceById/{place_id}', 'PlacesController@getPlaceById');
+
 Route::post('/profileImage', 'UserController@store');
 
 Route::get('register/confirm/{token}', 'Auth\RegisterController@confirmEmail');
