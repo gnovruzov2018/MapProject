@@ -41,6 +41,7 @@
                 var geocoder;
                 var clickedPlace = '';
                 var clickedCategory = '';
+                var data = {};
                 var markers = [];
                 function initMap() {
                     map = new google.maps.Map(document.getElementById('map'), {
@@ -117,6 +118,7 @@
                                     success: function (data) {
                                         if (data.length > 0) {
                                             createMarker(results[i]);
+                                            console.log(data);
                                         }
                                     },
                                     error: function () {
@@ -127,6 +129,7 @@
                         }
                     }
                 }
+
                 function createMarker(place) {
                     var placeLoc = place.geometry.location;
                     var icon = '';
@@ -208,7 +211,7 @@
                             if (category!='' ) {
                                 var request = {
                                     location: pos,
-                                    radius: '2000',
+                                    radius: '1000',
                                     type: [category]
                                 };
                                 findNearByPlaces(request);
