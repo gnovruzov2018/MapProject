@@ -43,6 +43,7 @@
                 var clickedCategory = '';
                 var data = {};
                 var markers = [];
+                var places;
                 function initMap() {
                     map = new google.maps.Map(document.getElementById('map'), {
                         center:{lat: -33.867, lng: 151.195},
@@ -83,6 +84,11 @@
                         // Browser doesn't support Geolocation
                         handleLocationError(false, infoWindow, map.getCenter());
                     }
+                    places = [
+                            @foreach ($places as $place)
+                        [ "{{ $place->id }}", "{{ $place->place_id }}", "{{ $place->name }}", "{{ $place->discount }}", "{{ $place->city->name }}", "{{ $place->category->name }}" ],
+                        @endforeach
+                    ];
                 }
 
                   function clearMarkers() {
@@ -110,22 +116,12 @@
                 function callback(results, status) {
                     if (status === google.maps.places.PlacesServiceStatus.OK) {
                         for (var i = 0; i < results.length; i++) {
-                            (function (i) {
-                                $.ajax({
-                                    url: '/findPlaceById/' + results[i].place_id,
-                                    type: 'GET',
-                                    dataType: 'json',
-                                    success: function (data) {
-                                        if (data.length > 0) {
-                                            createMarker(results[i]);
-                                            console.log(data);
-                                        }
-                                    },
-                                    error: function () {
-                                        console.log('error');
-                                    }
-                                });
-                            })(i);
+
+                            for (var j = 0; j<places.length;j++){
+                                if (places[j][1]==results[i].place_id){
+                                    createMarker(results[i]);
+                                }
+                            }
                         }
                     }
                 }

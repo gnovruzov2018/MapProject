@@ -23,6 +23,8 @@ Route::get('/profile', 'UserController@index');
 
 Route::get('/findPlaceById/{place_id}', 'PlacesController@getPlaceById');
 
+Route::get('/getAllPlaces', 'PlacesController@index');
+
 Route::post('/profileImage', 'UserController@store');
 
 Route::get('register/confirm/{token}', 'Auth\RegisterController@confirmEmail');

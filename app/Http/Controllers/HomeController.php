@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+
+
+use App\Place;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,8 +26,9 @@ class HomeController extends Controller
 
     public function index()
     {
-        return view('index');
 
+        $places = Place::all();
+        return view('index')->with('places',$places);
     }
 
 
