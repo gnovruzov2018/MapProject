@@ -14,7 +14,8 @@ class PlacesController extends Controller
      */
     public function index()
     {
-        //
+        $places = Place::all();
+        return json_encode($places);
     }
 
     /**
