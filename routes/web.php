@@ -12,6 +12,11 @@
 */
 Route::get('/', 'HomeController@index')->name('home');
 
+Route::get('/admin', 'AdminController@index')->name('home');
+
+/*Route::get('/places', function(){
+	return view('admin.places.create');
+});*/
 
 Route::get('/login', function () {
     return view('login');
@@ -22,8 +27,6 @@ Route::get('/register', function () {
 Route::get('/profile', 'UserController@index');
 
 Route::get('/findPlaceById/{place_id}', 'PlacesController@getPlaceById');
-
-Route::get('/getAllPlaces', 'PlacesController@index');
 
 Route::post('/profileImage', 'UserController@store');
 

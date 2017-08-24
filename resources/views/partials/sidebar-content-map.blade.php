@@ -5,7 +5,7 @@
 <li class="header">Cities</li>
 
 <li class = "treeview">
-    <a href="#" onclick="geocodeLocation('')"><i class="fa fa-circle-o"></i> My Location</a>
+    <a href="#" onclick="getCurrentPosition('')"><i class="fa fa-circle-o"></i> My Location</a>
 </li>
 
 <li class="treeview">

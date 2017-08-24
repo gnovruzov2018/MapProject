@@ -29,7 +29,7 @@
 
         <!-- Main content -->
         <section class="content">
-            <input id="searchTextField" type="text" placeholder="Search..." size="20">
+            <input id="searchTextField" type="text" size="20">
             <div id="map"></div>
             <script>
                 var map;
@@ -49,7 +49,7 @@
                     infowindow = new google.maps.InfoWindow;
                     getCurrentPosition('');
                     places = [
-                        @foreach ($places as $place)
+                            @foreach ($places as $place)
                         [ "{{ $place->id }}", "{{ $place->place_id }}", "{{ $place->name }}", "{{ $place->discount }}", "{{ $place->city->name }}", "{{ $place->category->name }}" ],
                         @endforeach
                     ];
@@ -58,17 +58,11 @@
                         placeMarker(event.latLng);
                     });
 
-                    var options = {
-                      // types: ['restaurant', 'food'],
-                      componentRestrictions: {country: "AZ"}
-                     };
-
                     var input = document.getElementById('searchTextField');
-                    var autocomplete = new google.maps.places.Autocomplete(input, options);
-
-                     
+                    var autocomplete = new google.maps.places.Autocomplete(input);
 
                     autocomplete.addListener('place_changed', function() {
+                        console.log(input.value);
                         geocodePlace(null, input.value, '');
                     });
                 }
@@ -211,6 +205,7 @@
                         if (status === 'OK') {
                             var pos = results[0].geometry.location;
                             map.setCenter(pos);
+                            console.log(results[0]);
                             createMarker(results[0]);
                             if (category!='' ) {
                                 var request = {
