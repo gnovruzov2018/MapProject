@@ -11,11 +11,11 @@ $(function () {
    * Get access to plugins
    */
 
-  $('[data-toggle="control-sidebar"]').controlSidebar()
+  $('[data-toggle="admin-sidebar"]').controlSidebar()
   $('[data-toggle="push-menu"]').pushMenu()
 
   var $pushMenu       = $('[data-toggle="push-menu"]').data('lte.pushmenu')
-  var $controlSidebar = $('[data-toggle="control-sidebar"]').data('lte.controlsidebar')
+  var $controlSidebar = $('[data-toggle="admin-sidebar"]').data('lte.controlsidebar')
   var $layout         = $('body').data('lte.layout')
 
   /**
@@ -127,17 +127,17 @@ $(function () {
 
       $controlSidebar.options.slide = slide
       if (!slide)
-        $('.control-sidebar').removeClass('control-sidebar-open')
+        $('.admin-sidebar').removeClass('control-sidebar-open')
     })
 
     $('[data-sidebarskin="toggle"]').on('click', function () {
-      var $sidebar = $('.control-sidebar')
-      if ($sidebar.hasClass('control-sidebar-dark')) {
-        $sidebar.removeClass('control-sidebar-dark')
-        $sidebar.addClass('control-sidebar-light')
+      var $sidebar = $('.admin-sidebar')
+      if ($sidebar.hasClass('admin-sidebar-dark')) {
+        $sidebar.removeClass('admin-sidebar-dark')
+        $sidebar.addClass('admin-sidebar-light')
       } else {
-        $sidebar.removeClass('control-sidebar-light')
-        $sidebar.addClass('control-sidebar-dark')
+        $sidebar.removeClass('admin-sidebar-light')
+        $sidebar.addClass('admin-sidebar-dark')
       }
     })
 
@@ -163,18 +163,18 @@ $(function () {
 
   // Create the new tab
   var $tabPane = $('<div />', {
-    'id'   : 'control-sidebar-theme-demo-options-tab',
+    'id'   : 'admin-sidebar-theme-demo-options-tab',
     'class': 'tab-pane active'
   })
 
   // Create the tab button
   var $tabButton = $('<li />', { 'class': 'active' })
-    .html('<a href=\'#control-sidebar-theme-demo-options-tab\' data-toggle=\'tab\'>'
+    .html('<a href=\'#admin-sidebar-theme-demo-options-tab\' data-toggle=\'tab\'>'
       + '<i class="fa fa-wrench"></i>'
       + '</a>')
 
   // Add the tab button to the right sidebar tabs
-  $('[href="#control-sidebar-home-tab"]')
+  $('[href="#admin-sidebar-home-tab"]')
     .parent()
     .before($tabButton)
 
@@ -183,12 +183,12 @@ $(function () {
 
   // Layout options
   $demoSettings.append(
-    '<h4 class="control-sidebar-heading">'
+    '<h4 class="admin-sidebar-heading">'
     + 'Layout Options'
     + '</h4>'
     // Fixed layout
     + '<div class="form-group">'
-    + '<label class="control-sidebar-subheading">'
+    + '<label class="admin-sidebar-subheading">'
     + '<input type="checkbox"data-layout="fixed"class="pull-right"/> '
     + 'Fixed layout'
     + '</label>'
@@ -196,7 +196,7 @@ $(function () {
     + '</div>'
     // Boxed layout
     + '<div class="form-group">'
-    + '<label class="control-sidebar-subheading">'
+    + '<label class="admin-sidebar-subheading">'
     + '<input type="checkbox"data-layout="layout-boxed" class="pull-right"/> '
     + 'Boxed Layout'
     + '</label>'
@@ -204,7 +204,7 @@ $(function () {
     + '</div>'
     // Sidebar Toggle
     + '<div class="form-group">'
-    + '<label class="control-sidebar-subheading">'
+    + '<label class="admin-sidebar-subheading">'
     + '<input type="checkbox"data-layout="sidebar-collapse"class="pull-right"/> '
     + 'Toggle Sidebar'
     + '</label>'
@@ -212,7 +212,7 @@ $(function () {
     + '</div>'
     // Sidebar mini expand on hover toggle
     + '<div class="form-group">'
-    + '<label class="control-sidebar-subheading">'
+    + '<label class="admin-sidebar-subheading">'
     + '<input type="checkbox"data-enable="expandOnHover"class="pull-right"/> '
     + 'Sidebar Expand on Hover'
     + '</label>'
@@ -220,15 +220,15 @@ $(function () {
     + '</div>'
     // Control Sidebar Toggle
     + '<div class="form-group">'
-    + '<label class="control-sidebar-subheading">'
-    + '<input type="checkbox"data-controlsidebar="control-sidebar-open"class="pull-right"/> '
+    + '<label class="admin-sidebar-subheading">'
+    + '<input type="checkbox"data-controlsidebar="admin-sidebar-open"class="pull-right"/> '
     + 'Toggle Right Sidebar Slide'
     + '</label>'
     + '<p>Toggle between slide over content and push content effects</p>'
     + '</div>'
     // Control Sidebar Skin Toggle
     + '<div class="form-group">'
-    + '<label class="control-sidebar-subheading">'
+    + '<label class="admin-sidebar-subheading">'
     + '<input type="checkbox"data-sidebarskin="toggle"class="pull-right"/> '
     + 'Toggle Right Sidebar Skin'
     + '</label>'
@@ -337,11 +337,11 @@ $(function () {
             + '<p class="text-center no-margin" style="font-size: 12px">Yellow Light</p>')
   $skinsList.append($skinYellowLight)
 
-  $demoSettings.append('<h4 class="control-sidebar-heading">Skins</h4>')
+  $demoSettings.append('<h4 class="admin-sidebar-heading">Skins</h4>')
   $demoSettings.append($skinsList)
 
   $tabPane.append($demoSettings)
-  $('#control-sidebar-home-tab').after($tabPane)
+  $('#admin-sidebar-home-tab').after($tabPane)
 
   setup()
 

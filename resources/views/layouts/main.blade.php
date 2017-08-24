@@ -13,6 +13,8 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{{asset('admin_Lte/css/dataTables.bootstrap.min.css')}}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('admin_Lte/css/AdminLTE.min.css')}}">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -272,7 +274,7 @@
                         </a>
                     </li>
                 </ul>
-                <!-- /.control-sidebar-menu -->
+                <!-- /.admin-sidebar-menu -->
 
                 <h3 class="control-sidebar-heading">Tasks Progress</h3>
                 <ul class="control-sidebar-menu">
@@ -325,7 +327,7 @@
                         </a>
                     </li>
                 </ul>
-                <!-- /.control-sidebar-menu -->
+                <!-- /.admin-sidebar-menu -->
 
             </div>
             <!-- /.tab-pane -->
@@ -403,9 +405,9 @@
             <!-- /.tab-pane -->
         </div>
     </aside>
-    <!-- /.control-sidebar -->
+    <!-- /.admin-sidebar -->
     <!-- Add the sidebar's background. This div must be placed
-         immediately after the control sidebar -->
+         immediately after the admin sidebar -->
     <div class="control-sidebar-bg"></div>
 </div>
 <!-- ./wrapper -->
@@ -418,6 +420,9 @@
 <script src="{{asset('admin_Lte/js/jquery.min.js')}}"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="{{asset('admin_Lte/js/bootstrap.min.js')}}"></script>
+<!-- DataTables -->
+<script src="{{asset('admin_Lte/js/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('admin_Lte/js/dataTables.bootstrap.min.js')}}"></script>
 <!-- SlimScroll -->
 <script src="{{asset('admin_Lte/js/jquery.slimscroll.min.js')}}"></script>
 <!-- FastClick -->
@@ -435,6 +440,19 @@
 <script>
     $(document).ready(function () {
         $('.sidebar-menu').tree()
+    })
+</script>
+<script>
+    $(function () {
+        $('#example1').DataTable()
+        $('#example2').DataTable({
+            'paging'      : true,
+            'lengthChange': false,
+            'searching'   : false,
+            'ordering'    : true,
+            'info'        : true,
+            'autoWidth'   : false
+        })
     })
 </script>
 </body>

@@ -43,4 +43,16 @@ class User extends Authenticatable
         $this->token = null;
         $this->save();
     }
+    public function isAdmin(){
+        if($this->role=='admin'){
+            return true;
+        }
+        return false;
+    }
+    public function isUser(){
+        if($this->role=='user'){
+            return true;
+        }
+        return false;
+    }
 }
