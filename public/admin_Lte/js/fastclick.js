@@ -489,14 +489,14 @@
 
 
 	/**
-	 * Attempt to find the labelled control for the given label element.
+	 * Attempt to find the labelled admin for the given label element.
 	 *
 	 * @param {EventTarget|HTMLLabelElement} labelElement
 	 * @returns {Element|null}
 	 */
 	FastClick.prototype.findControl = function(labelElement) {
 
-		// Fast path for newer browsers supporting the HTML5 control attribute
+		// Fast path for newer browsers supporting the HTML5 admin attribute
 		if (labelElement.control !== undefined) {
 			return labelElement.control;
 		}
