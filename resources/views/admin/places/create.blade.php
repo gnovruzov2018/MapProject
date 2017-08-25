@@ -40,8 +40,8 @@
                 var geocoder;
                 var markers = [];
                 var detailsOfPlace = {};
-                
-
+                var places;
+                var isAdded = false;
                 function initMap() {
                     map = new google.maps.Map(document.getElementById('map'), {
                         center:{lat: -33.867, lng: 151.195},
@@ -51,6 +51,12 @@
                     infowindow = new google.maps.InfoWindow;
                     getCurrentPosition('');
                     initAutocomplete();
+
+                       places = [
+                        @foreach ($places as $place)
+                        [ "{{ $place->id }}", "{{ $place->place_id }}", "{{ $place->name }}", "{{ $place->discount }}", "{{ $place->city->name }}", "{{ $place->category->name }}" ],
+                        @endforeach
+                    ];
                 }
 
                 function initAutocomplete(){
@@ -67,11 +73,22 @@
                         service = new google.maps.places.PlacesService(map);
                         service.textSearch(request, function(results, status){
                             if (status === google.maps.places.PlacesServiceStatus.OK) {
+                                console.log(results[0]);
                                 clearMarkers();
                                 createMarker(results[0]);   
                                 map.setCenter(results[0].geometry.location);
-                                detailsOfPlace.id = results[0].id;
-                                detailsOfPlace.name = results[0].name;
+                                isAdded=true;
+                                for(var i=0; i<places.length; i++){
+                                    if(places[i][1]==results[0].id){
+                                        isAdded = false;
+                                        detailsOfPlace.discount = places[i][3];
+                                        break;
+                                    }
+                                }
+                                if(isAdded){
+                                    detailsOfPlace.id = results[0].id;
+                                    detailsOfPlace.name = results[0].name;
+                                }
                             }
                         });
                     });
@@ -131,9 +148,14 @@
                         position: placeLoc
                     });
                     google.maps.event.addListener(marker, 'click', function() {
-                        var inputBox = '<br><br><div class="col-xs-7">\n' +
-                            '                  <input id="discountInput" type="text" class="form-control" placeholder="percentage...">\n' +
-                            '               </div> <div class="col-xs-5"><button class="btn btn-block btn-md btn-primary" onclick="addPlace()">Əlavə et</button> </div>" '
+                        if(!isAdded){
+                            var inputBox = '<br><span style="color:green">Bu yer artıq əlavə olunub!<br>Endirim: ' + detailsOfPlace.discount + '%</span>'
+                        } else {
+                             var inputBox = '<br><br><div class="col-xs-7">\n' +
+                            '<input id="discountInput" type="text" class="form-control" placeholder="percentage...">\n' +
+                            '</div> <div class="col-xs-5"><button class="btn btn-block btn-md btn-primary" onclick="addPlace()">Əlavə et</button> </div>" '
+                        }
+                        
                         infowindow.setContent(place.name+'<br>'+place.place_id + inputBox);
                         infowindow.open(map, this);
                     });
@@ -142,7 +164,6 @@
 
                 function addPlace(){
                    detailsOfPlace.discount = parseInt(discountInput.value);
-                   console.log(detailsOfPlace);
                    $.ajax({
                       url: '/admin/places/store',
                       type: 'post', // performing a POST request
@@ -155,6 +176,8 @@
                       {
                       }
                     });
+                   var inputBox = '<br><span style="color:green">Bu yer artıq əlavə olunub!<br>Endirim: ' + detailsOfPlace.discount + '%</span>'
+                   infowindow.setContent(detailsOfPlace.name+'<br>'+detailsOfPlace.id + inputBox);
                 }
 
                 function getCurrentPosition(category){

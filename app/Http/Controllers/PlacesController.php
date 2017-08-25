@@ -24,7 +24,8 @@ class PlacesController extends Controller
 
     public function create()
     {
-        return view('admin.places.create');
+        $places = Place::all();
+        return view('admin.places.create')->with('places', $places);
     }
 
 

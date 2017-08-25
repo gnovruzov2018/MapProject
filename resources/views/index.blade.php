@@ -35,6 +35,7 @@
         <section class="content">
             <div id="map"></div>
             <script>
+            
                 var map;
                 var infowindow;
                 var geocoder;
@@ -43,6 +44,7 @@
                 var markers = [];
                 var places;
                 var pos = {};
+
                 function initMap() {
                     map = new google.maps.Map(document.getElementById('map'), {
                         center:{lat: -33.867, lng: 151.195},
