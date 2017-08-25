@@ -2,8 +2,6 @@
 
 Route::get('/', 'HomeController@index')->name('home');
 
-Route::post('/admin_places_add', 'PlacesController@store');
-
 Route::get('/profile', 'UserController@index');
 
 Route::get('/findPlaceById/{place_id}', 'PlacesController@getPlaceById');
