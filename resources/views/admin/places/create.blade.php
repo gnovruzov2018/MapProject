@@ -132,8 +132,8 @@
                     });
                     google.maps.event.addListener(marker, 'click', function() {
                         var inputBox = '<br><br><div class="col-xs-7">\n' +
-                            '                  <input id="discountInput" type="text" class="form-control" placeholder="percentage...">\n' +
-                            '               </div> <div class="col-xs-5"><button class="btn btn-block btn-md btn-primary" onclick="addPlace()">Əlavə et</button> </div>" '
+                            '                  <input id="discountInput" type="text" class="form-control" placeholder="percentage..." required>\n' +
+                            '               </div> <div class="col-xs-5"><button  class="btn btn-block btn-md btn-primary" onclick="addPlace()" >Əlavə et</button> </div>" '
                         infowindow.setContent(place.name+'<br>'+place.place_id + inputBox);
                         infowindow.open(map, this);
                     });
@@ -141,20 +141,26 @@
                 }
 
                 function addPlace(){
-                   detailsOfPlace.discount = parseInt(discountInput.value);
-                   console.log(detailsOfPlace);
-                   $.ajax({
-                      url: '/admin/places/store',
-                      type: 'post', // performing a POST request
-                      data : {
-                        "_token": " {!!csrf_token() !!} ",
-                        "detailsOfPlace": detailsOfPlace
-                      },
-                      dataType: 'json',                   
-                      success: function(data)         
-                      {
-                      }
-                    });
+                    detailsOfPlace.discount = parseInt(discountInput.value);
+                    if (!detailsOfPlace.discount){
+                        $('#myModal1').modal('show');
+                    }else {
+                        console.log(detailsOfPlace);
+                        $('#myModal').modal('show');
+                        $.ajax({
+                            url: '/admin/places/store',
+                            type: 'post', // performing a POST request
+                            data: {
+                                "_token": " {!!csrf_token() !!} ",
+                                "detailsOfPlace": detailsOfPlace
+                            },
+                            dataType: 'json',
+                            success: function () {
+                            },
+                            error: function () {
+                            }
+                        });
+                    }
                 }
 
                 function getCurrentPosition(category){
@@ -184,6 +190,38 @@
                
 
             </script>
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog modal-md modal-primary">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h3 class="modal-title">Status</h3>
+                        </div>
+                        <div class="modal-body">
+                            <h4>You have successfully added place!</h4>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="myModal1" role="dialog">
+                <div class="modal-dialog modal-md modal-danger">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h3 class="modal-title">Status</h3>
+                        </div>
+                        <div class="modal-body">
+                            <h4>Please, insert amount of discount!</h4>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </section>
         <!-- /.content -->
