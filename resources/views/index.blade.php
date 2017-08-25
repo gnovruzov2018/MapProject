@@ -115,11 +115,11 @@
                 function callback(results, status) {
                     if (status === google.maps.places.PlacesServiceStatus.OK) {
                         for (var i = 0; i < results.length; i++) {
-                            // for (var j = 0; j<places.length;j++){
-                                // if (places[j][1]==results[i].place_id){
+                            for (var j = 0; j<places.length;j++){
+                                if (places[j][1]==results[i].place_id){
                                     createMarker(results[i]);
-                                // }
-                            // }
+                                }
+                            }
                         }
                     }
                 }
