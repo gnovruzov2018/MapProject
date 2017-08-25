@@ -62,9 +62,11 @@ class PlacesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($place_id)
     {
-        //
+        $place = new Place();
+        $place->findOrFail($place_id)->delete();
+        return $this->index();
     }
     public function getPlaceById($place_id){
         $place = Place::where('place_id',$place_id)->get();

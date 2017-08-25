@@ -45,7 +45,7 @@
     </a>
     <ul class="treeview-menu">
             <li><a href="#" ><i class="fa fa-plus"></i>Add Place</a></li>
-            <li><a href="/admin_places_index" ><i class="fa fa-eye"></i>See Places</a></li>
+            <li><a href="/admin/places/index" ><i class="fa fa-eye"></i>See Places</a></li>
     </ul>
 </li>
 @endif

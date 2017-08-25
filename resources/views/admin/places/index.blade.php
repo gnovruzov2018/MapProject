@@ -49,18 +49,20 @@
                                     <th>Category</th>
                                     <th>Create Date</th>
                                     <th>Expire Date</th>
+                                    <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($places as $place)
                                     <tr>
-                                        <td>{{$place->place_id}}</td>
-                                        <td>{{$place->name}}</td>
-                                        <td>{{$place->discount}}</td>
-                                        <td>{{$place->city->name}}</td>
-                                        <td>{{$place->category->name}}</td>
-                                        <td>{{$place->created_at}}</td>
-                                        <td>{{$place->updated_at}}</td>
+                                        <td width="15%">{{$place->place_id}}</td>
+                                        <td width="15%">{{$place->name}}</td>
+                                        <td width="5%">{{$place->discount}}</td>
+                                        <td width="10%">{{$place->city->name}}</td>
+                                        <td width="10%">{{$place->category->name}}</td>
+                                        <td width="10%">{{$place->created_at}}</td>
+                                        <td width="10%">{{$place->updated_at}}</td>
+                                        <td width="4%"><a href="/admin/places/delete/{{$place->id}}" class="btn btn-block btn-danger btn-flat"><i class="fa fa-trash"></i> Danger</a></td>
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -73,9 +75,11 @@
                                     <th>Category</th>
                                     <th>Create Date</th>
                                     <th>Expire Date</th>
+                                    <th>Action</th>
                                 </tr>
                                 </tfoot>
                             </table>
+                            <!-- /.modal -->
                         </div>
                         <!-- /.box-body -->
                     </div>
