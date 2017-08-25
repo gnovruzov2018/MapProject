@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Place;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 
 class PlacesController extends Controller
@@ -23,13 +24,24 @@ class PlacesController extends Controller
 
     public function create()
     {
-        //
+        return view('admin.places.create');
     }
+
 
 
     public function store(Request $request)
     {
-        //
+        $data = $request['detailsOfPlace'];
+        $values=array('id' => $data['id'],
+                    'name' => $data['name'], 
+                    'discount' => $data['discount']);
+        $place = new Place();
+        $place->place_id = $values['id'];
+        $place->name = $values['name'];
+        $place->discount = $values['discount'];
+        $place->city_id = 1;
+        $place->category_id = 1;
+        $place->save();
     }
 
 

@@ -12,7 +12,11 @@
                 @include('partials.sidebar-header')
             </div>
             <!-- search form -->
-
+            <form action="#" method="get" class="sidebar-form">
+                <div class="input-group">
+                    <input type="text" style="margin-right: 34px"  id="searchTextForUser"  class="form-control" placeholder="Search...">
+                </div>
+            </form>
             <!-- /.search form -->
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu" data-widget="tree">
@@ -29,7 +33,6 @@
 
         <!-- Main content -->
         <section class="content">
-            <input id="searchTextField" type="text" placeholder="Search..." size="20">
             <div id="map"></div>
             <script>
                 var map;
@@ -37,7 +40,6 @@
                 var geocoder;
                 var clickedPlace = '';
                 var clickedCategory = '';
-                var data = {};
                 var markers = [];
                 var places;
                 var pos = {};
@@ -57,22 +59,31 @@
                     google.maps.event.addListener(map, 'click', function(event) {
                         placeMarker(event.latLng);
                     });
-
+                    initAutocomplete();
+                }
+                function initAutocomplete(){
                     var options = {
-                      // types: ['restaurant', 'food'],
-                      componentRestrictions: {country: "AZ"}
-                     };
-
-                    var input = document.getElementById('searchTextField');
-                    var autocomplete = new google.maps.places.Autocomplete(input, options);
-
-                     
+                        componentRestrictions: {country: "AZ"}
+                    };
+                    var searchInput = document.getElementById('searchTextForUser');
+                    var autocomplete = new google.maps.places.Autocomplete(searchInput, options);
 
                     autocomplete.addListener('place_changed', function() {
-                        geocodePlace(null, input.value, '');
+                        var request = {
+                            query: searchInput.value
+                        }
+                        service = new google.maps.places.PlacesService(map);
+                        service.textSearch(request, function(results, status){
+                            if (status === google.maps.places.PlacesServiceStatus.OK) {
+                                clearMarkers();
+                                createMarker(results[0]);
+                                map.setCenter(results[0].geometry.location);
+                                detailsOfPlace.id = results[0].id;
+                                detailsOfPlace.name = results[0].name;
+                            }
+                        });
                     });
                 }
-
                 function clearMarkers() {
                   for (var i = 0; i < markers.length; i++) {
                   markers[i].setMap(null);
@@ -115,11 +126,11 @@
                 function callback(results, status) {
                     if (status === google.maps.places.PlacesServiceStatus.OK) {
                         for (var i = 0; i < results.length; i++) {
-                            // for (var j = 0; j<places.length;j++){
-                                // if (places[j][1]==results[i].place_id){
+                            for (var j = 0; j<places.length;j++){
+                                if (places[j][1]==results[i].place_id){
                                     createMarker(results[i]);
-                                // }
-                            // }
+                                }
+                            }
                         }
                     }
                 }
